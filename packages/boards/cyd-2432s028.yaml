@@ -26,7 +26,7 @@ packages:
   flash: !include ../hardware/flash-4mb.yaml
   # Every size of the compact look, scaled to DISPLAY_DPI below. This glass is where that look was drawn.
   look: !include ../looks/compact.yaml
-  touch: !include ../features/resistive-touch.yaml
+  touch: !include ../features/capacitive-touch.yaml
   backlight: !include ../features/backlight.yaml
   self_test: !include ../features/self-test.yaml
   # The light on the RGB LED on the back of the board (the outputs are below).
@@ -104,14 +104,15 @@ spi:
     clk_pin: GPIO14
     mosi_pin: GPIO13
 
-  - id: my_touchscreen
-    clk_pin: GPIO25
-    mosi_pin: GPIO32
-    miso_pin: GPIO39
+  - id: touch_i2c
+    sda: GPIO33
+    scl: GPIO32
+    frequency: 400kHz
+    scan: true
 
 output:
   - platform: ledc
-    pin: GPIO21
+    pin: GPIO27
     id: gpio_backlight_pwm
     # 1 kHz, ESPHome's ledc default (GitHub #42, #20): at 20 kHz the transistor that switches the backlight could
     # not follow the pulses, so 100 % was full and 95 % already almost dark, with little change below. At 1 kHz
@@ -138,15 +139,18 @@ output:
 # with the display. GPIO36 IRQ is deliberately unused (driver requests a
 # pull-up that this input-only pin cannot provide).
 touchscreen:
-  - platform: xpt2046
+  - platform: cst816
     id: ts_touch
-    spi_id: my_touchscreen
-    cs_pin: 33
-    # Polling avoids GPIO36 pull-up errors and noisy PENIRQ edges.
-    update_interval: 20ms
-    # Diagnosis caught a false corner contact at pressure 422. Deliberate
-    # contacts measured 936-2643; reject the low-pressure tail on release.
-    threshold: 800
+    display: my_display
+    i2c_id: touch_i2c
+    reset_pin: GPIO25
+    interrupt_pin:
+      number: GPIO21
+      ignore_strapping_warning: true
+    transform:
+      swap_xy: true
+      mirror_x: false
+      mirror_y: false
 
 # Display configuration (ILI9341)
 display:

@@ -148,11 +148,9 @@ touchscreen:
     reset_pin: GPIO25
     update_interval: 50ms
     transform:
-      swap_xy: true
+      swap_xy: false
       mirror_x: false
-      mirror_y: true
-    on_touch:
-      - lambda: ESP_LOGI("touch", "x=%d, y=%d", touch.x, touch.y);
+      mirror_y: false
     
 
 # Display configuration (ILI9341)

@@ -40,6 +40,9 @@ substitutions:
   # The bedside clock draws with the display step this board has anyway: its own digits, a page tall, cost about 40 KB of
   # a 4 MB board's slot, which is close to full (looks/shared/digits.yaml).
   BEDSIDE_OWN_DIGITS: "0"
+  TOUCH_SWAP_XY: "true"
+  TOUCH_MIRROR_X: "false"
+  TOUCH_MIRROR_Y: "true"
 
   # The glass: the panel's own pixels, which the display block below always drives; LVGL turns the picture and the
   # touch together, so nothing else on this board knows which way the glass hangs. The compact look takes 143 dpi
@@ -148,9 +151,12 @@ touchscreen:
     reset_pin: GPIO25
     update_interval: 50ms
     transform:
-      swap_xy: false
+      swap_xy: true
       mirror_x: false
-      mirror_y: false
+      mirror_y: true
+    on_touch:
+      - lambda: |-
+        ESP_LOGI("touch", "Final: x=%d, y=%d | Raw: x_raw=%d, y_raw=%d", touch.x, touch.y, touch.x_raw, touch.y_raw);
     
 
 # Display configuration (ILI9341)

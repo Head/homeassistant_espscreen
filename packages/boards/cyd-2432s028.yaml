@@ -154,9 +154,6 @@ touchscreen:
       swap_xy: true
       mirror_x: false
       mirror_y: true
-    on_touch:
-      - lambda: |-
-        ESP_LOGI("touch", "Final: x=%d, y=%d | Raw: x_raw=%d, y_raw=%d", touch.x, touch.y, touch.x_raw, touch.y_raw);
     
 
 # Display configuration (ILI9341)

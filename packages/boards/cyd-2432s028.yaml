@@ -150,7 +150,7 @@ touchscreen:
     transform:
       swap_xy: true
       mirror_x: false
-      mirror_y: false
+      mirror_y: true
     on_touch:
       - lambda: ESP_LOGI("touch", "x=%d, y=%d", touch.x, touch.y);
     

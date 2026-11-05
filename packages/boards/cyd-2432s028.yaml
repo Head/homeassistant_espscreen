@@ -41,7 +41,6 @@ substitutions:
   # a 4 MB board's slot, which is close to full (looks/shared/digits.yaml).
   BEDSIDE_OWN_DIGITS: "0"
   TOUCH_SWAP_XY: "true"
-  TOUCH_MIRROR_X: "false"
   TOUCH_MIRROR_Y: "true"
 
   # The glass: the panel's own pixels, which the display block below always drives; LVGL turns the picture and the
@@ -54,7 +53,7 @@ substitutions:
   ROTATION_LANDSCAPE: "90"
   # true on this board (resistive XPT2046) — was false on the 032c board
   # (capacitive GT911). This is the original upstream value for this panel.
-  TOUCH_MIRROR_X: "true"
+  TOUCH_MIRROR_X: "false"
   # The tile grid: columns and rows of cells. The shared tree places every cell from these
   # (runtime_tiles::place_page).
   GRID_COLS: "2"
@@ -71,14 +70,6 @@ substitutions:
   DISPLAY_DATA_RATE: "40MHz"                    # the display's SPI clock; 40MHz matches ESPHome's board preset
   DISPLAY_INVERT_COLORS: "false"
   BACKLIGHT_FREQUENCY: "1000Hz"                 # the backlight's PWM; see the output block (GitHub #42)
-
-  # Measured on this board: median top-right raw=(523,3390),
-  # bottom-left raw=(3487,482), at screen (299,20) and (20,219).
-  # Extrapolated to panel edges; verify with the isolated corner test.
-  TOUCH_CAL_X_MIN: "280"
-  TOUCH_CAL_X_MAX: "3860"
-  TOUCH_CAL_Y_MIN: "340"
-  TOUCH_CAL_Y_MAX: "3860"
 
 # ============================================================
 # No need to edit below this line.
@@ -150,11 +141,6 @@ touchscreen:
     i2c_id: touch_i2c
     reset_pin: GPIO25
     update_interval: 50ms
-    transform:
-      swap_xy: true
-      mirror_x: false
-      mirror_y: true
-    
 
 # Display configuration (ILI9341)
 display:

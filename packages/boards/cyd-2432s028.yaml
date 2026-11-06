@@ -148,8 +148,6 @@ touchscreen:
       swap_xy: ${TOUCH_SWAP_XY}
       mirror_x: ${TOUCH_MIRROR_X}
       mirror_y: ${TOUCH_MIRROR_Y}
-    on_touch:
-      - lambda: ESP_LOGW("TOUCH_DEBUG", "raw_x=%d, raw_y=%d -> out_x=%d, out_y=%d", touch.x_raw, touch.y_raw, touch.x, touch.y);
 
 # Display configuration (ILI9341)
 display:

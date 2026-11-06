@@ -139,6 +139,11 @@ touchscreen:
     i2c_id: touch_i2c
     reset_pin: GPIO25
     update_interval: 50ms
+    calibration:
+      x_min: 0
+      x_max: 240
+      y_min: 0
+      y_max: 320
     transform:
       swap_xy: ${TOUCH_SWAP_XY}
       mirror_x: ${TOUCH_MIRROR_X}

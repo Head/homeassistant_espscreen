@@ -141,6 +141,10 @@ touchscreen:
     i2c_id: touch_i2c
     reset_pin: GPIO25
     update_interval: 50ms
+    transform:
+      swap_xy: ${TOUCH_SWAP_XY}
+      mirror_x: ${TOUCH_MIRROR_X}
+      mirror_y: ${TOUCH_MIRROR_Y}
 
 # Display configuration (ILI9341)
 display:
